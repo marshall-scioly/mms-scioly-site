@@ -148,14 +148,19 @@ img { max-width: 100%; display: block; }
   width: 40px;
   height: 40px;
   border-radius: 11px;
-  background: linear-gradient(140deg, var(--purple-600), var(--purple-900));
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--gold-500);
   flex-shrink: 0;
+  overflow: hidden;
+  padding: 3px;
 }
 .brand .mark svg { width: 22px; height: 22px; }
+.brand .mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .brand small {
   display: block;
   font-family: 'Inter', sans-serif;
