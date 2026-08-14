@@ -14,7 +14,11 @@
   .register-wrap h2 { font-size: 1.3rem; margin: 2rem 0 .5rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1); }
   .register-wrap h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
   .register-wrap p { margin: .5rem 0; line-height: 1.55; }
-  .step-action { margin: .9rem 0 .3rem; }
+  .step-action { margin: .9rem 0 .3rem; display: flex; flex-wrap: wrap; gap: .6rem; }
+  @media (max-width: 640px) {
+    .step-action { flex-direction: column; align-items: stretch; }
+    .step-action .btn { width: 100%; text-align: center; }
+  }
   .callout { border-left: 3px solid #5B3A9B; background: rgba(91,58,155,0.06); padding: .8rem 1.1rem; border-radius: 8px; margin: 1.8rem 0 0; }
   .callout strong { color: #5B3A9B; }
 </style>
@@ -72,9 +76,10 @@
 <a class="btn btn-ghost" href="rules.html" target="_blank" rel="noopener">Read the Rules</a>
 </div>
 
-<h2>2. Review the coaching schedule</h2>
-<p>Check the practice days and times for each event before you choose. Attendance at all coaching sessions is required, so choose events that fit around your student's schedule.</p>
+<h2>2. Review the events and coaching schedule</h2>
+<p>Go through this year's events, then check the coaching schedule for practice days and times. Attendance at all coaching sessions is required, so choose events that fit around your student's schedule.</p>
 <div class="step-action">
+<a class="btn btn-ghost" href="events.html" target="_blank" rel="noopener">This Season's Events</a>
 <a class="btn btn-ghost" href="schedule.html" target="_blank" rel="noopener">Coaching Schedule</a>
 </div>
 
