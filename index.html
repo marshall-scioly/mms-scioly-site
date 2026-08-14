@@ -19,6 +19,15 @@
   .section-head { margin-bottom: 30px; }
   .card-grid { gap: 20px; }
 
+  /* Last-season stat band */
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .stat-tile { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 28px 22px; text-align: center; }
+  .stat-num { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: clamp(2.2rem, 5vw, 3rem); line-height: 1; color: var(--purple-700); }
+  .stat-num.gold { color: var(--gold-600); }
+  .stat-label { margin-top: 10px; font-weight: 600; color: var(--ink-700); font-size: .98rem; }
+  .stat-sub { margin-top: 4px; color: var(--ink-500); font-size: .82rem; }
+  .last-season-note { text-align: center; max-width: 720px; margin: 24px auto 0; color: var(--ink-700); line-height: 1.55; }
+
   @media (max-width: 760px) {
     .hero { padding-top: 34px; padding-bottom: 28px; }
     .hero p.lead { margin-bottom: 18px; }
@@ -88,6 +97,29 @@
 </div>
 </div>
 </div>
+</div>
+</section>
+<section class="bg-soft reveal">
+<div class="container">
+<div class="section-head">
+<div class="eyebrow">Last Season</div>
+<h2>How we did in 2025–2026</h2>
+</div>
+<div class="stat-grid">
+<div class="stat-tile">
+<div class="stat-num">7</div>
+<div class="stat-label">Teams</div>
+</div>
+<div class="stat-tile">
+<div class="stat-num">105</div>
+<div class="stat-label">Students competed</div>
+</div>
+<div class="stat-tile">
+<div class="stat-num gold">22</div>
+<div class="stat-label">Medals at Regionals</div>
+</div>
+</div>
+<p class="last-season-note">At the San Diego Regional our teams brought home <strong>22 medals across 14 events</strong> — including <strong>1st place in Write It Do It</strong> and 3rd place in Remote Sensing and Scrambler — and qualified for the State tournament.</p>
 </div>
 </section>
 </main>
