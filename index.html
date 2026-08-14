@@ -8,6 +8,28 @@
 <link rel="icon" href="assets/favicon.png" type="image/png" />
 <script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="assets/style.css" />
+<style>
+  /* Homepage — compact vertical spacing (2026-27). Tighten/loosen these values to taste. */
+  .hero { padding-top: 44px !important; padding-bottom: 30px !important; }
+  main > section.reveal,
+  main > section.bg-soft { padding-top: 48px !important; padding-bottom: 48px !important; }
+  .hero .lead { margin-bottom: 1.1rem; }
+  .hero-actions { margin-top: 1.3rem; }
+  .hero-mail { margin-top: .9rem; }
+  .section-head { margin-bottom: 1.4rem; }
+  .card-grid { gap: 1.1rem; }
+
+  /* Phones — tighter still, and make the hero buttons full-width so they don't crowd. */
+  @media (max-width: 640px) {
+    .hero { padding-top: 32px !important; padding-bottom: 24px !important; }
+    main > section.reveal,
+    main > section.bg-soft { padding-top: 36px !important; padding-bottom: 36px !important; }
+    .section-head { margin-bottom: 1.1rem; }
+    .card-grid { gap: .9rem; }
+    .hero-actions { display: flex; flex-direction: column; gap: .6rem; }
+    .hero-actions .btn { width: 100%; text-align: center; }
+  }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -40,7 +62,7 @@
 </div>
 </header>
 <main id="main">
-<section class="hero" style="padding-top:64px;">
+<section class="hero">
 <div class="container">
 <div class="eyebrow">2026–2027 Season · Division B</div>
 <h1>Marshall Middle School<br><span class="accent">Science Olympiad</span></h1>
