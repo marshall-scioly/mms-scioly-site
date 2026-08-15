@@ -8,6 +8,112 @@
 <link rel="icon" href="assets/favicon.png" type="image/png" />
 <script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="assets/style.css" />
+<style>
+  /* ---------- Coaching schedule (page-scoped) ---------- */
+  .sched{
+    --g1:#2f6fb0; --g2:#1a8a7f; --g3:#4a9e4f;
+    --g4:#c47a1e; --g5:#7d4ea3; --g6:#c0455f;
+    --build:#4b5563;
+    --cal-line:var(--border);
+  }
+
+  .sched-note{
+    max-width:760px; margin:0 auto 34px; text-align:center;
+    font-size:.95rem; color:var(--ink-500);
+  }
+
+  .legend{
+    display:flex; flex-wrap:wrap; gap:10px 20px; align-items:center;
+    justify-content:center; margin:0 auto 12px; font-size:.85rem; color:var(--ink-700);
+  }
+  .legend .item{display:flex; align-items:center; gap:8px;}
+  .swatch{width:14px; height:14px; border-radius:4px; display:inline-block; flex:0 0 auto;}
+  .swatch.stripe{
+    background-color:#9aa2ad;
+    background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,rgba(255,255,255,0) 3px 6px);
+  }
+  .legend-caption{
+    text-align:center; font-size:.85rem; color:var(--ink-500);
+    max-width:640px; margin:0 auto 30px;
+  }
+
+  .sched-block{margin-top:38px;}
+  .sched-block:first-of-type{margin-top:0;}
+  .sched-label{
+    font-family:'Poppins',sans-serif; font-weight:700; font-size:.74rem;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--purple-700);
+    margin:0 0 12px;
+  }
+
+  /* ----- grid calendar (desktop) ----- */
+  .cal{
+    border:1px solid var(--cal-line); border-radius:var(--radius-md);
+    overflow:hidden; background:#fff; box-shadow:var(--shadow-sm);
+  }
+  .cal-head{display:grid; border-bottom:1px solid var(--cal-line); background:var(--bg-soft);}
+  .cal-head .cell{
+    padding:12px 8px; text-align:center; border-left:1px solid var(--cal-line);
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:.92rem; color:var(--purple-800);
+  }
+  .cal-head .cell:first-child{border-left:none;}
+  .cal-body{display:grid; padding-bottom:10px;}
+  .gutter{position:relative; border-right:1px solid var(--cal-line);}
+  .gutter .tlabel{
+    position:absolute; right:8px; font-size:.72rem; color:var(--ink-300);
+    transform:translateY(-6px); white-space:nowrap;
+  }
+  .daycol{position:relative; border-left:1px solid var(--cal-line);}
+  .daycol:first-child{border-left:none;}
+
+  .ev{
+    position:absolute; border-radius:10px; color:#fff; padding:7px 9px;
+    overflow:hidden; box-shadow:0 1px 2px rgba(31,27,46,.12);
+  }
+  .ev.g1{background:var(--g1);} .ev.g2{background:var(--g2);} .ev.g3{background:var(--g3);}
+  .ev.g4{background:var(--g4);} .ev.g5{background:var(--g5);} .ev.g6{background:var(--g6);}
+  .ev.build{background:var(--build);}
+  .ev .t{
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:.8rem; line-height:1.15;
+    margin-bottom:2px; overflow-wrap:break-word; -webkit-hyphens:auto; hyphens:auto;
+  }
+  .ev .time{font-size:.72rem; opacity:.95; line-height:1.2;}
+  .ev .loc{font-size:.7rem; opacity:.95; line-height:1.25; margin-top:2px; display:flex; align-items:flex-start; gap:4px;}
+  .ev .loc svg{flex:0 0 auto; width:11px; height:11px; margin-top:2px; opacity:.9;}
+  .ev.stripe::after{
+    content:""; position:absolute; inset:0; pointer-events:none; border-radius:10px;
+    background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.15) 0 6px,rgba(255,255,255,0) 6px 12px);
+  }
+
+  /* ----- stacked list (mobile) ----- */
+  .cal-list{display:none;}
+  .day-group{margin-bottom:22px;}
+  .day-group h3{
+    font-size:1rem; margin:0 0 10px; padding-bottom:8px;
+    border-bottom:2px solid var(--border); color:var(--purple-800);
+  }
+  .row{
+    display:flex; gap:12px; align-items:flex-start;
+    background:#fff; border:1px solid var(--border); border-left-width:5px;
+    border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:8px;
+    box-shadow:var(--shadow-sm);
+  }
+  .row.g1{border-left-color:var(--g1);} .row.g2{border-left-color:var(--g2);}
+  .row.g3{border-left-color:var(--g3);} .row.g4{border-left-color:var(--g4);}
+  .row.g5{border-left-color:var(--g5);} .row.g6{border-left-color:var(--g6);}
+  .row.build{border-left-color:var(--build);}
+  .row .body{flex:1; min-width:0;}
+  .row .t{font-family:'Poppins',sans-serif; font-weight:600; font-size:.98rem; color:var(--ink-900); line-height:1.25;}
+  .row .time{font-size:.88rem; color:var(--ink-700); margin-top:2px;}
+  .row .loc{font-size:.85rem; color:var(--ink-500); margin-top:3px; display:flex; align-items:center; gap:5px;}
+  .row .loc svg{width:13px; height:13px; flex:0 0 auto;}
+
+  @media (max-width:860px){
+    .cal{display:none;}
+    .cal-list{display:block;}
+    .sched-block{margin-top:30px;}
+    .legend{justify-content:flex-start;}
+  }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -51,15 +157,42 @@
 </div>
 </section>
 
-<section class="reveal">
+<section class="reveal sched">
 <div class="container">
-<div class="coming-soon">
-<div class="icon-circle">
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 3v3M17 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
-</div>
-<h3>The coaching schedule will be published soon</h3>
-<p>Check back here — the full schedule of practice days, times, and locations will be posted before the season begins.</p>
-</div>
+
+  <p class="sched-note">
+    Every event meets once a week. Times and locations may still shift as the season starts —
+    check back here, and email <a href="mailto:scioly@mmofoundation.com">scioly@mmofoundation.com</a>
+    if your student has a conflict.
+  </p>
+
+  <div class="legend">
+    <div class="item"><span class="swatch" style="background:var(--g1)"></span>Group 1</div>
+    <div class="item"><span class="swatch" style="background:var(--g2)"></span>Group 2</div>
+    <div class="item"><span class="swatch" style="background:var(--g3)"></span>Group 3</div>
+    <div class="item"><span class="swatch" style="background:var(--g4)"></span>Group 4</div>
+    <div class="item"><span class="swatch" style="background:var(--g5)"></span>Group 5</div>
+    <div class="item"><span class="swatch" style="background:var(--g6)"></span>Group 6</div>
+    <div class="item"><span class="swatch" style="background:var(--build)"></span>Build events</div>
+    <div class="item"><span class="swatch stripe"></span>Online / off-site</div>
+  </div>
+  <p class="legend-caption">
+    Events sharing a color don't share students, so their practices can run at the same time.
+    Striped blocks meet online or off-site; solid blocks meet in a room at school.
+  </p>
+
+  <div class="sched-block">
+    <div class="sched-label">Weeknights · 5:00–8:00 PM</div>
+    <div class="cal" id="weeknights"></div>
+    <div class="cal-list" id="weeknights-list"></div>
+  </div>
+
+  <div class="sched-block">
+    <div class="sched-label">Weekend</div>
+    <div class="cal" id="weekend"></div>
+    <div class="cal-list" id="weekend-list"></div>
+  </div>
+
 </div>
 </section>
 
@@ -100,6 +233,154 @@ MMS Science Olympiad
 </div>
 </div>
 </footer>
+
+<script>
+(function(){
+  var ICONS = {
+    online:'<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.6" y="2.6" width="12.8" height="8.4" rx="1" stroke="currentColor" stroke-width="1.3"/><line x1="6" y1="13.6" x2="10" y2="13.6" stroke="currentColor" stroke-width="1.3"/><line x1="8" y1="11" x2="8" y2="13.6" stroke="currentColor" stroke-width="1.3"/></svg>',
+    offsite:'<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 7.4 L8 2.4 L14 7.4" stroke="currentColor" stroke-width="1.3"/><path d="M3.6 7 V13.2 H12.4 V7" stroke="currentColor" stroke-width="1.3"/></svg>',
+    room:'<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6 C5.2 1.6 3.1 3.7 3.1 6.3 C3.1 9.5 8 14.4 8 14.4 C8 14.4 12.9 9.5 12.9 6.3 C12.9 3.7 10.8 1.6 8 1.6 Z" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="6.2" r="1.5" fill="currentColor"/></svg>'
+  };
+
+  /* ---------- WEEKNIGHTS: minutes measured from 5:00 PM ---------- */
+  var wnDays = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
+  var wnEvents = [
+    {day:0,s:0,  d:60,c:'g1',   title:'Disease Detectives',      time:'5:00–6:00 PM',    loc:'Online',      kind:'online'},
+    {day:0,s:60, d:60,c:'g3',   title:'Meteorology',             time:'6:00–7:00 PM',    loc:'Online',      kind:'online'},
+    {day:0,s:120,d:60,c:'g2',   title:'Solar System',            time:'7:00–8:00 PM',    loc:'Online',      kind:'online'},
+
+    {day:1,s:30, d:60,c:'g2',   title:'Experimental Design',     time:'5:30–6:30 PM',    loc:'Classroom',   kind:'room'},
+    {day:1,s:90, d:60,c:'build',title:'Roller Coaster',          time:'6:30–7:30 PM',    loc:'Classroom',   kind:'room',   lane:0,lanes:2},
+    {day:1,s:120,d:60,c:'g4',   title:'Dynamic Planet',          time:'7:00–8:00 PM',    loc:'Online + off-site', kind:'offsite', lane:1,lanes:2},
+
+    {day:2,s:0,  d:60,c:'g1',   title:'Remote Sensing',          time:'5:00–6:00 PM',    loc:'Classroom',   kind:'room'},
+    {day:2,s:60, d:60,c:'g4',   title:'Food Science',            time:'6:00–7:00 PM',    loc:'Lab',         kind:'room'},
+    {day:2,s:120,d:60,c:'g5',   title:'Heredity',                time:'7:00–8:00 PM',    loc:'Online',      kind:'online'},
+
+    {day:3,s:0,  d:90,c:'g1',   title:'Code&shy;busters',        time:'5:00–6:30 PM',    loc:'Classroom',   kind:'room',   lane:0,lanes:2},
+    {day:3,s:0,  d:60,c:'build',title:'Scrambler',               time:'5:00–6:00 PM',    loc:'Off-site',    kind:'offsite',lane:1,lanes:2},
+    {day:3,s:90, d:90,c:'g6',   title:'Write It Do It',          time:'6:30–8:00 PM',    loc:'Classroom',   kind:'room'},
+
+    {day:4,s:0,  d:90,c:'g6',   title:'Crime Busters',           time:'5:00–6:30 PM',    loc:'Lab',         kind:'room',   lane:0,lanes:2},
+    {day:4,s:0,  d:60,c:'g5',   title:'Thermo&shy;dynamics',     time:'5:00–6:00 PM',    loc:'Online + off-site', kind:'offsite', lane:1,lanes:2},
+    {day:4,s:90, d:60,c:'build',title:'Ping-Pong Parachute',     time:'6:30–7:30 PM',    loc:'MPR',         kind:'room',   lane:0,lanes:2},
+    {day:4,s:90, d:60,c:'build',title:'Elastic Launched Gliders',time:'6:30–7:30 PM',    loc:'MPR',         kind:'room',   lane:1,lanes:2}
+  ];
+  var wnHourLabels = [{m:0,l:'5 PM'},{m:60,l:'6 PM'},{m:120,l:'7 PM'},{m:180,l:'8 PM'}];
+
+  /* ---------- WEEKEND: minutes measured from 8:00 AM ---------- */
+  var weDays = ["Saturday","Sunday"];
+  var weEvents = [
+    {day:0,s:30, d:60,c:'g5',   title:'Rocks & Minerals',      time:'8:30–9:30 AM',    loc:'Online',   kind:'online'},
+    {day:0,s:120,d:90,c:'g6',   title:'Anatomy & Physiology',  time:'10:00–11:30 AM',  loc:'Off-site', kind:'offsite'},
+    {day:0,s:330,d:90,c:'build',title:'Boomilever',            time:'1:30–3:00 PM',    loc:'Off-site', kind:'offsite'},
+
+    {day:1,s:30, d:60,c:'g3',   title:'Botany',                time:'8:30–9:30 AM',    loc:'Online',   kind:'online'},
+    {day:1,s:120,d:90,c:'build',title:'Hovercraft',            time:'10:00–11:30 AM',  loc:'Online',   kind:'online'},
+    {day:1,s:360,d:60,c:'g2',   title:'Water Quality',         time:'2:00–3:00 PM',    loc:'Online',   kind:'online'},
+    {day:1,s:600,d:60,c:'g4',   title:'Circuit Lab',           time:'6:00–7:00 PM',    loc:'Online + off-site', kind:'offsite'}
+  ];
+  var weHourLabels = [];
+  for(var m=0;m<=660;m+=60){
+    var h = 8 + m/60;
+    weHourLabels.push({m:m, l:(h<12 ? h+' AM' : (h===12 ? '12 PM' : (h-12)+' PM'))});
+  }
+
+  function buildCal(rootId, days, events, pxMin, startM, endM, hourLabels, gutterW){
+    var root = document.getElementById(rootId);
+    if(!root) return;
+    var height = (endM-startM)*pxMin;
+    var cols = gutterW+'px repeat('+days.length+',1fr)';
+
+    var head = document.createElement('div');
+    head.className = 'cal-head';
+    head.style.gridTemplateColumns = cols;
+    var hb = document.createElement('div'); hb.className='cell'; head.appendChild(hb);
+    days.forEach(function(d){
+      var c = document.createElement('div'); c.className='cell'; c.textContent=d; head.appendChild(c);
+    });
+    root.appendChild(head);
+
+    var body = document.createElement('div');
+    body.className = 'cal-body';
+    body.style.gridTemplateColumns = cols;
+
+    var gut = document.createElement('div');
+    gut.className = 'gutter';
+    gut.style.height = height+'px';
+    hourLabels.forEach(function(hl){
+      var t = document.createElement('div');
+      t.className = 'tlabel';
+      t.style.top = ((hl.m-startM)*pxMin)+'px';
+      t.textContent = hl.l;
+      gut.appendChild(t);
+    });
+    body.appendChild(gut);
+
+    days.forEach(function(d, di){
+      var col = document.createElement('div');
+      col.className = 'daycol';
+      col.style.height = height+'px';
+      col.style.backgroundImage =
+        'repeating-linear-gradient(to bottom, transparent 0, transparent '+(60*pxMin-1)+'px, '+
+        'var(--cal-line) '+(60*pxMin-1)+'px, var(--cal-line) '+(60*pxMin)+'px)';
+
+      events.filter(function(e){ return e.day===di; }).forEach(function(e){
+        var ev = document.createElement('div');
+        ev.className = 'ev '+e.c+((e.kind==='online'||e.kind==='offsite') ? ' stripe' : '');
+        ev.style.top = ((e.s-startM)*pxMin+2)+'px';
+        ev.style.height = (e.d*pxMin-4)+'px';
+        var lanes = e.lanes||1, lane = e.lane||0;
+        if(lanes===1){ ev.style.left='4px'; ev.style.right='4px'; }
+        else{
+          var wpct = 100/lanes;
+          ev.style.width = 'calc('+wpct+'% - 6px)';
+          ev.style.left  = 'calc('+(wpct*lane)+'% + 3px)';
+        }
+        ev.innerHTML =
+          '<div class="t">'+e.title+'</div>'+
+          '<div class="time">'+e.time+'</div>'+
+          '<div class="loc">'+ICONS[e.kind]+'<span>'+e.loc+'</span></div>';
+        col.appendChild(ev);
+      });
+      body.appendChild(col);
+    });
+    root.appendChild(body);
+  }
+
+  function buildList(rootId, days, events){
+    var root = document.getElementById(rootId);
+    if(!root) return;
+    days.forEach(function(d, di){
+      var items = events.filter(function(e){ return e.day===di; })
+                        .sort(function(a,b){ return a.s-b.s; });
+      if(!items.length) return;
+      var group = document.createElement('div');
+      group.className = 'day-group';
+      var h = document.createElement('h3');
+      h.textContent = d;
+      group.appendChild(h);
+      items.forEach(function(e){
+        var row = document.createElement('div');
+        row.className = 'row '+e.c;
+        row.innerHTML =
+          '<div class="body">'+
+            '<div class="t">'+e.title+'</div>'+
+            '<div class="time">'+e.time+'</div>'+
+            '<div class="loc">'+ICONS[e.kind]+'<span>'+e.loc+'</span></div>'+
+          '</div>';
+        group.appendChild(row);
+      });
+      root.appendChild(group);
+    });
+  }
+
+  buildCal('weeknights', wnDays, wnEvents, 2.0, 0, 180, wnHourLabels, 58);
+  buildCal('weekend',    weDays, weEvents, 1.0, 0, 660, weHourLabels, 58);
+  buildList('weeknights-list', wnDays, wnEvents);
+  buildList('weekend-list',    weDays, weEvents);
+})();
+</script>
 
 <script src="assets/main.js"></script>
 </body>
