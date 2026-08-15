@@ -107,19 +107,26 @@
     font-size:1rem; margin:0 0 10px; padding-bottom:8px;
     border-bottom:2px solid var(--border); color:var(--purple-800);
   }
+  /* mobile cards use the SAME filled / outlined language as the desktop grid */
   .row{
-    display:flex; align-items:stretch; overflow:hidden;
-    background:#fff; border:1px solid var(--border);
-    border-radius:var(--radius-sm); margin-bottom:8px; box-shadow:var(--shadow-sm);
+    border-radius:var(--radius-md); margin-bottom:8px;
+    box-shadow:0 1px 2px rgba(31,27,46,.12);
+    border:2px solid transparent; color:#fff;
   }
-  .rail{width:10px; flex:0 0 10px;}
-  .row.g1 .rail{background:var(--g1);} .row.g2 .rail{background:var(--g2);}
-  .row.g3 .rail{background:var(--g3);} .row.g4 .rail{background:var(--g4);}
-  .row.g5 .rail{background:var(--g5);} .row.g6 .rail{background:var(--g6);}
-  .row.build .rail{background:var(--build);}
-  .row .body{flex:1; min-width:0; padding:12px 14px;}
-  .row .t{font-family:'Poppins',sans-serif; font-weight:600; font-size:1rem; color:var(--ink-900); line-height:1.25;}
-  .row .time{font-size:.92rem; font-weight:600; color:var(--ink-700); margin-top:3px;}
+  .row.g1{background:var(--g1);} .row.g2{background:var(--g2);} .row.g3{background:var(--g3);}
+  .row.g4{background:var(--g4);} .row.g5{background:var(--g5);} .row.g6{background:var(--g6);}
+  .row.build{background:var(--build);}
+  .row.remote{box-shadow:0 1px 2px rgba(31,27,46,.08); color:var(--ink-900);}
+  .row.remote.g1{background:color-mix(in srgb, var(--g1) 15%, #fff); border-color:var(--g1);}
+  .row.remote.g2{background:color-mix(in srgb, var(--g2) 15%, #fff); border-color:var(--g2);}
+  .row.remote.g3{background:color-mix(in srgb, var(--g3) 15%, #fff); border-color:var(--g3);}
+  .row.remote.g4{background:color-mix(in srgb, var(--g4) 15%, #fff); border-color:var(--g4);}
+  .row.remote.g5{background:color-mix(in srgb, var(--g5) 15%, #fff); border-color:var(--g5);}
+  .row.remote.g6{background:color-mix(in srgb, var(--g6) 15%, #fff); border-color:var(--g6);}
+  .row.remote.build{background:color-mix(in srgb, var(--build) 15%, #fff); border-color:var(--build);}
+  .row .body{min-width:0; padding:12px 14px;}
+  .row .t{font-family:'Poppins',sans-serif; font-weight:600; font-size:1rem; color:inherit; line-height:1.25;}
+  .row .time{font-size:.92rem; font-weight:600; color:inherit; opacity:.95; margin-top:3px;}
   .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
   .chip{
     display:inline-flex; align-items:center; gap:5px;
@@ -127,15 +134,9 @@
     padding:5px 9px; border-radius:999px; white-space:nowrap;
   }
   .chip svg{width:12px; height:12px; flex:0 0 auto;}
-  .chip-group{color:#fff;}
-  .row.g1 .chip-group{background:var(--g1);} .row.g2 .chip-group{background:var(--g2);}
-  .row.g3 .chip-group{background:var(--g3);} .row.g4 .chip-group{background:var(--g4);}
-  .row.g5 .chip-group{background:var(--g5);} .row.g6 .chip-group{background:var(--g6);}
-  .row.build .chip-group{background:var(--build);}
-  .chip-loc{background:var(--bg-soft); border:1px solid var(--border); color:var(--ink-700);}
-  /* mobile mirror of the filled/outlined split — no texture, just weight */
-  .row:not(.remote) .chip-loc{background:var(--ink-700); border-color:var(--ink-700); color:#fff;}
-  .row.remote .chip-loc{background:#fff; border-color:var(--ink-300); color:var(--ink-700);}
+  /* on a filled card the chips sit in translucent white; on an outlined card, in ink */
+  .row:not(.remote) .chip{background:rgba(255,255,255,.22); color:#fff; border:1px solid rgba(255,255,255,.30);}
+  .row.remote .chip{background:rgba(255,255,255,.75); color:var(--ink-700); border:1px solid rgba(31,27,46,.14);}
 
   @media (max-width:860px){
     .cal{display:none;}
@@ -397,7 +398,6 @@ MMS Science Olympiad
         var row = document.createElement('div');
         row.className = 'row '+e.c+((e.kind==='online'||e.kind==='offsite') ? ' remote' : '');
         row.innerHTML =
-          '<span class="rail" aria-hidden="true"></span>'+
           '<div class="body">'+
             '<div class="t">'+e.title+'</div>'+
             '<div class="time">'+e.time+'</div>'+
