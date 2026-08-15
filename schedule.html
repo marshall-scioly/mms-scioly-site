@@ -23,18 +23,21 @@
   }
 
   .legend{
-    display:flex; flex-wrap:wrap; gap:10px 20px; align-items:center;
-    justify-content:center; margin:0 auto 12px; font-size:.85rem; color:var(--ink-700);
+    display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center;
+    justify-content:center; margin:0 auto 12px; font-size:.88rem; color:var(--ink-700);
   }
   .legend .item{display:flex; align-items:center; gap:8px;}
-  .swatch{width:14px; height:14px; border-radius:4px; display:inline-block; flex:0 0 auto;}
-  .swatch.stripe{
-    background-color:#9aa2ad;
-    background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.55) 0 3px,rgba(255,255,255,0) 3px 6px);
+  .swatch{width:18px; height:18px; border-radius:5px; display:inline-block; flex:0 0 auto;}
+  .swatch.solid-demo{background:#6b7480;}
+  .swatch.remote-demo{background:#eef0f2; border:2px solid #6b7480;}
+  .legend-split{
+    display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; justify-content:center;
+    margin:14px auto 0; font-size:.88rem; color:var(--ink-700);
   }
+  .legend-split .item{display:flex; align-items:center; gap:8px;}
   .legend-caption{
     text-align:center; font-size:.85rem; color:var(--ink-500);
-    max-width:640px; margin:0 auto 30px;
+    max-width:640px; margin:16px auto 30px;
   }
 
   .sched-block{margin-top:38px;}
@@ -79,10 +82,23 @@
   .ev .time{font-size:.72rem; opacity:.95; line-height:1.2;}
   .ev .loc{font-size:.7rem; opacity:.95; line-height:1.25; margin-top:2px; display:flex; align-items:flex-start; gap:4px;}
   .ev .loc svg{flex:0 0 auto; width:11px; height:11px; margin-top:2px; opacity:.9;}
-  .ev.stripe::after{
-    content:""; position:absolute; inset:0; pointer-events:none; border-radius:10px;
-    background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.15) 0 6px,rgba(255,255,255,0) 6px 12px);
+  /* Online / off-site: same hue, light fill + solid rule. No texture. */
+  .ev.remote{
+    background:#fff; border:2px solid currentColor; padding:5px 7px;
+    box-shadow:0 1px 2px rgba(31,27,46,.08);
   }
+  .ev.remote.g1{color:var(--g1);} .ev.remote.g2{color:var(--g2);} .ev.remote.g3{color:var(--g3);}
+  .ev.remote.g4{color:var(--g4);} .ev.remote.g5{color:var(--g5);} .ev.remote.g6{color:var(--g6);}
+  .ev.remote.build{color:var(--build);}
+  .ev.remote.g1{background:color-mix(in srgb, var(--g1) 15%, #fff);}
+  .ev.remote.g2{background:color-mix(in srgb, var(--g2) 15%, #fff);}
+  .ev.remote.g3{background:color-mix(in srgb, var(--g3) 15%, #fff);}
+  .ev.remote.g4{background:color-mix(in srgb, var(--g4) 15%, #fff);}
+  .ev.remote.g5{background:color-mix(in srgb, var(--g5) 15%, #fff);}
+  .ev.remote.g6{background:color-mix(in srgb, var(--g6) 15%, #fff);}
+  .ev.remote.build{background:color-mix(in srgb, var(--build) 15%, #fff);}
+  .ev.remote .t{color:var(--ink-900);}
+  .ev.remote .time, .ev.remote .loc{color:var(--ink-700); opacity:1;}
 
   /* ----- stacked list (mobile) ----- */
   .cal-list{display:none;}
@@ -91,21 +107,36 @@
     font-size:1rem; margin:0 0 10px; padding-bottom:8px;
     border-bottom:2px solid var(--border); color:var(--purple-800);
   }
+  /* mobile cards use the SAME filled / outlined language as the desktop grid */
   .row{
-    display:flex; gap:12px; align-items:flex-start;
-    background:#fff; border:1px solid var(--border); border-left-width:5px;
-    border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:8px;
-    box-shadow:var(--shadow-sm);
+    border-radius:var(--radius-md); margin-bottom:8px;
+    box-shadow:0 1px 2px rgba(31,27,46,.12);
+    border:2px solid transparent; color:#fff;
   }
-  .row.g1{border-left-color:var(--g1);} .row.g2{border-left-color:var(--g2);}
-  .row.g3{border-left-color:var(--g3);} .row.g4{border-left-color:var(--g4);}
-  .row.g5{border-left-color:var(--g5);} .row.g6{border-left-color:var(--g6);}
-  .row.build{border-left-color:var(--build);}
-  .row .body{flex:1; min-width:0;}
-  .row .t{font-family:'Poppins',sans-serif; font-weight:600; font-size:.98rem; color:var(--ink-900); line-height:1.25;}
-  .row .time{font-size:.88rem; color:var(--ink-700); margin-top:2px;}
-  .row .loc{font-size:.85rem; color:var(--ink-500); margin-top:3px; display:flex; align-items:center; gap:5px;}
-  .row .loc svg{width:13px; height:13px; flex:0 0 auto;}
+  .row.g1{background:var(--g1);} .row.g2{background:var(--g2);} .row.g3{background:var(--g3);}
+  .row.g4{background:var(--g4);} .row.g5{background:var(--g5);} .row.g6{background:var(--g6);}
+  .row.build{background:var(--build);}
+  .row.remote{box-shadow:0 1px 2px rgba(31,27,46,.08); color:var(--ink-900);}
+  .row.remote.g1{background:color-mix(in srgb, var(--g1) 15%, #fff); border-color:var(--g1);}
+  .row.remote.g2{background:color-mix(in srgb, var(--g2) 15%, #fff); border-color:var(--g2);}
+  .row.remote.g3{background:color-mix(in srgb, var(--g3) 15%, #fff); border-color:var(--g3);}
+  .row.remote.g4{background:color-mix(in srgb, var(--g4) 15%, #fff); border-color:var(--g4);}
+  .row.remote.g5{background:color-mix(in srgb, var(--g5) 15%, #fff); border-color:var(--g5);}
+  .row.remote.g6{background:color-mix(in srgb, var(--g6) 15%, #fff); border-color:var(--g6);}
+  .row.remote.build{background:color-mix(in srgb, var(--build) 15%, #fff); border-color:var(--build);}
+  .row .body{min-width:0; padding:12px 14px;}
+  .row .t{font-family:'Poppins',sans-serif; font-weight:600; font-size:1rem; color:inherit; line-height:1.25;}
+  .row .time{font-size:.92rem; font-weight:600; color:inherit; opacity:.95; margin-top:3px;}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .chip{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:.76rem; font-weight:600; line-height:1;
+    padding:5px 9px; border-radius:999px; white-space:nowrap;
+  }
+  .chip svg{width:12px; height:12px; flex:0 0 auto;}
+  /* on a filled card the chips sit in translucent white; on an outlined card, in ink */
+  .row:not(.remote) .chip{background:rgba(255,255,255,.22); color:#fff; border:1px solid rgba(255,255,255,.30);}
+  .row.remote .chip{background:rgba(255,255,255,.75); color:var(--ink-700); border:1px solid rgba(31,27,46,.14);}
 
   @media (max-width:860px){
     .cal{display:none;}
@@ -172,7 +203,10 @@
     <div class="item"><span class="swatch" style="background:var(--g5)"></span>Group 5</div>
     <div class="item"><span class="swatch" style="background:var(--g6)"></span>Group 6</div>
     <div class="item"><span class="swatch" style="background:var(--build)"></span>Build events</div>
-    <div class="item"><span class="swatch stripe"></span>Online / off-site</div>
+  </div>
+  <div class="legend-split">
+    <div class="item"><span class="swatch solid-demo"></span>Filled = meets in a room at school</div>
+    <div class="item"><span class="swatch remote-demo"></span>Outlined = meets online or off-site</div>
   </div>
   <p class="legend-caption">
     "Conflict Blocks" are grouped by color. Events in a single conflict block (other than build events) typically have exams concurrently.
@@ -239,6 +273,8 @@ MMS Science Olympiad
     offsite:'<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 7.4 L8 2.4 L14 7.4" stroke="currentColor" stroke-width="1.3"/><path d="M3.6 7 V13.2 H12.4 V7" stroke="currentColor" stroke-width="1.3"/></svg>',
     room:'<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 1.6 C5.2 1.6 3.1 3.7 3.1 6.3 C3.1 9.5 8 14.4 8 14.4 C8 14.4 12.9 9.5 12.9 6.3 C12.9 3.7 10.8 1.6 8 1.6 Z" stroke="currentColor" stroke-width="1.3"/><circle cx="8" cy="6.2" r="1.5" fill="currentColor"/></svg>'
   };
+
+  var GROUP_LABEL = {g1:'Group 1',g2:'Group 2',g3:'Group 3',g4:'Group 4',g5:'Group 5',g6:'Group 6',build:'Build event'};
 
   /* ---------- WEEKNIGHTS: minutes measured from 5:00 PM ---------- */
   var wnDays = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
@@ -325,7 +361,7 @@ MMS Science Olympiad
 
       events.filter(function(e){ return e.day===di; }).forEach(function(e){
         var ev = document.createElement('div');
-        ev.className = 'ev '+e.c+((e.kind==='online'||e.kind==='offsite') ? ' stripe' : '');
+        ev.className = 'ev '+e.c+((e.kind==='online'||e.kind==='offsite') ? ' remote' : '');
         ev.style.top = ((e.s-startM)*pxMin+2)+'px';
         ev.style.height = (e.d*pxMin-4)+'px';
         var lanes = e.lanes||1, lane = e.lane||0;
@@ -360,12 +396,15 @@ MMS Science Olympiad
       group.appendChild(h);
       items.forEach(function(e){
         var row = document.createElement('div');
-        row.className = 'row '+e.c;
+        row.className = 'row '+e.c+((e.kind==='online'||e.kind==='offsite') ? ' remote' : '');
         row.innerHTML =
           '<div class="body">'+
             '<div class="t">'+e.title+'</div>'+
             '<div class="time">'+e.time+'</div>'+
-            '<div class="loc">'+ICONS[e.kind]+'<span>'+e.loc+'</span></div>'+
+            '<div class="chips">'+
+              '<span class="chip chip-group">'+GROUP_LABEL[e.c]+'</span>'+
+              '<span class="chip chip-loc">'+ICONS[e.kind]+e.loc+'</span>'+
+            '</div>'+
           '</div>';
         group.appendChild(row);
       });
@@ -374,7 +413,7 @@ MMS Science Olympiad
   }
 
   buildCal('weeknights', wnDays, wnEvents, 2.0, 0, 180, wnHourLabels, 58);
-  buildCal('weekend',    weDays, weEvents, 1.0, 0, 660, weHourLabels, 58);
+  buildCal('weekend',    weDays, weEvents, 1.15, 0, 660, weHourLabels, 58);
   buildList('weeknights-list', wnDays, wnEvents);
   buildList('weekend-list',    weDays, weEvents);
 })();
