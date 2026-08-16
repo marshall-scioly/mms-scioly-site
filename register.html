@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Register — MMS Science Olympiad</title>
-<meta name="description" content="Register for Marshall Middle School Science Olympiad, 2026-2027 season. Read the rules, review the coaching schedule, and pay the team fee." />
+<meta name="description" content="Register for Marshall Middle School Science Olympiad, 2026-2027 season. Read the rules, review the coaching schedule, pay the team fee, and fill out the registration form." />
 <link rel="icon" href="assets/favicon.png" type="image/png" />
 <script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="assets/style.css" />
@@ -19,8 +19,33 @@
     .step-action { flex-direction: column; align-items: stretch; }
     .step-action .btn { width: 100%; text-align: center; }
   }
-  .callout { border-left: 3px solid #5B3A9B; background: rgba(91,58,155,0.06); padding: .8rem 1.1rem; border-radius: 8px; margin: 1.8rem 0 0; }
-  .callout strong { color: #5B3A9B; }
+  .deadline { margin: 1.2rem 0 0; padding: .9rem 0; border-top: 1px solid rgba(0,0,0,0.12); border-bottom: 1px solid rgba(0,0,0,0.12); }
+  .deadline p { margin: .25rem 0; }
+  .deadline p:first-child { margin-top: 0; }
+  .deadline p:last-child { margin-bottom: 0; }
+
+  /* Embedded registration form — allowed to break out wider than the 780px text
+     column so the event-ranking grid has room to breathe. */
+  .form-embed {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1040px, 92vw);
+    margin: 1.4rem 0 .5rem;
+  }
+  .form-embed iframe {
+    display: block;
+    width: 100%;
+    height: 1400px;
+    border: 0;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .form-note { font-size: .9rem; color: #555; margin: .4rem 0 0; }
+  @media (max-width: 640px) {
+    .form-embed iframe { height: 1200px; border-radius: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -83,13 +108,29 @@
 </div>
 
 <h2>3. Pay the team fee</h2>
-<p>The team fee is <strong>$200</strong>, paid by PayPal on the Team Dues page (a PayPal account isn't required — cards are accepted). The fee is refunded only if your student is not placed on the team. Keep the PayPal confirmation email — you'll enter your <strong>Transaction ID</strong> when the registration form opens.</p>
+<p>The team fee is <strong>$200</strong>, paid by PayPal on the Team Dues page (a PayPal account isn't required — cards are accepted). The fee is refunded only if your student is not placed on the team. Keep the PayPal confirmation email — you'll enter your <strong>Transaction ID</strong> in the registration form below.</p>
 <div class="step-action">
 <a class="btn btn-primary" href="team-dues.html" target="_blank" rel="noopener">Pay Team Dues</a>
 </div>
 
-<div class="callout">
-<strong>Registration form opens soon.</strong> The student registration form will be posted on this page once it's ready — dates will be announced shortly.
+<h2>4. Fill out the registration form</h2>
+<p>Complete the form below, once per student. You'll need your PayPal <strong>Transaction ID</strong> from step 3 and your student's top event choices. <strong>Submissions are final</strong> — you won't be able to edit your answers after submitting, so please review everything before you send it.</p>
+
+<div class="deadline">
+<p><strong>Registration closes Saturday, August 22, 2026 at 12:00 noon Pacific Time.</strong> The form stops accepting responses at that time.</p>
+<p>Questions: <a href="mailto:scioly@mmofoundation.com">scioly@mmofoundation.com</a></p>
+</div>
+
+<div class="step-action">
+<a class="btn btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSeBd-l13JpavyLA6yJHOcaOOQ3RDgxamwSPyr_Xtclc4_mNBA/viewform" target="_blank" rel="noopener">Open the Form in a New Tab</a>
+</div>
+<p class="form-note">On a phone or tablet, opening the form in its own tab is easier — the event-ranking grid is wide.</p>
+
+<div class="form-embed">
+<iframe
+  src="https://docs.google.com/forms/d/e/1FAIpQLSeBd-l13JpavyLA6yJHOcaOOQ3RDgxamwSPyr_Xtclc4_mNBA/viewform?embedded=true"
+  title="MMS Science Olympiad 2026–2027 Student Registration Form"
+  loading="lazy">Loading the registration form…</iframe>
 </div>
 
 </div>
