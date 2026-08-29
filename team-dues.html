@@ -8,6 +8,12 @@
 <link rel="icon" href="assets/favicon.png" type="image/png" />
 <script>document.documentElement.className += " js";</script>
 <link rel="stylesheet" href="assets/style.css" />
+<style>
+  .callout { border-left: 3px solid #5B3A9B; background: rgba(91,58,155,0.06); padding: .7rem 1rem; border-radius: 6px; margin: 0 0 22px; text-align: left; }
+  .callout strong { color: #5B3A9B; }
+  .dues-form-disabled { opacity: .5; filter: grayscale(65%); pointer-events: none; }
+  .dues-form-disabled fieldset { border: none; padding: 0; margin: 0; }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -31,7 +37,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="events.html">Events</a></li>
         <li><a href="schedule.html">Coaching Schedule</a></li>
-        <li><a class="nav-cta active" href="team-dues.html">Pay Team Dues</a></li>
+        <li><a class="nav-cta active is-disabled" aria-disabled="true">Pay Team Dues</a></li>
       </ul>
     </nav>
     <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -46,14 +52,18 @@
     <div class="container">
       <div class="eyebrow">2026–2027 Season</div>
       <h1>Team Dues</h1>
-      <p>Pay your Science Olympiad participation fee securely online with PayPal. A PayPal account isn't required — credit and debit cards are accepted.</p>
+      <p>Team dues payments are now closed for the 2026–2027 season.</p>
     </div>
   </section>
 
   <section class="reveal">
     <div class="container">
       <div class="dues-card">
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <div class="callout">
+          <strong>Team dues payments are now closed.</strong> Team selections will be published the week of August 31 — see the <a href="register.html">Registration</a> page for details.
+        </div>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="dues-form-disabled" aria-disabled="true">
+          <fieldset disabled>
           <input type="hidden" name="cmd" value="_s-xclick" />
           <input type="hidden" name="hosted_button_id" value="6KJUL6TLUJGKA" />
           <input type="hidden" name="currency_code" value="USD" />
@@ -75,8 +85,9 @@
           <div class="paypal-submit">
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="Buy Now with PayPal" title="PayPal — the safer, easier way to pay online" />
           </div>
+          </fieldset>
         </form>
-        <p class="dues-note">You'll be redirected to PayPal in a new tab to complete your payment securely.</p>
+        <p class="dues-note">Payments are no longer being accepted for the 2026–2027 season.</p>
       </div>
     </div>
   </section>
