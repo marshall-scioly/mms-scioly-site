@@ -198,6 +198,15 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--shadow-sm);
 }
 .nav-cta:hover { background: var(--gold-600); }
+.nav-cta.is-disabled,
+.nav-cta.is-disabled:hover {
+  background: var(--border) !important;
+  color: var(--ink-500) !important;
+  box-shadow: none;
+  opacity: .8;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 .nav-toggle {
   display: none;
